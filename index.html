@@ -167,6 +167,84 @@
       align-self: flex-start;
     }
 
+    .music-player {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 1rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .music-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .album-art {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      background-image: var(--border-gradient);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+    }
+
+    .track-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .track-title {
+      font-size: 1rem;
+      background: var(--main-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-artist {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .play-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--main-gradient);
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.1);
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--main-gradient);
+      transition: width 0.1s linear;
+    }
+
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-12px); }
@@ -174,6 +252,11 @@
 
     @keyframes blink {
       50% { opacity: 0 }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     @media (max-width: 768px) {
@@ -198,6 +281,11 @@
       .view-counter {
         align-self: center;
       }
+
+      .album-art {
+        width: 50px;
+        height: 50px;
+      }
     }
   </style>
 </head>
@@ -210,6 +298,25 @@
              class="avatar">
       </div>
       <div class="name">Serotonin</div>
+
+      <div class="music-player">
+        <div class="music-controls">
+          <img src="https://cdn.discordapp.com/attachments/813581388275122207/1372987300740464750/FznnATqm.jpg?ex=6828c591&is=68277411&hm=184c969a2e50fe15d0cf4f08b147ac7a0eabdbb4ffe73e86038cebb01b199fe8&" 
+               class="album-art" 
+               alt="Album Art">
+          <div class="track-info">
+            <div class="track-title">Cristal & МОЁТ</div>
+            <div class="track-artist">MORGENSHTERN</div>
+          </div>
+          <button class="play-button" id="playButton">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
       <div class="view-counter">Visits • <span id="views">0</span></div>
     </div>
 
@@ -232,6 +339,8 @@
       </div>
     </div>
   </div>
+
+  <audio id="audio-element" src="https://cdn.discordapp.com/attachments/813581388275122207/1372987589145133197/rxMTHt8C.mp3?ex=6828c5d6&is=68277456&hm=4b6a8d5635f063aee44ae5d3dfc385879fc44e7a606899a4b56f6ff7a14aa77e&"></audio>
 
   <script>
     // View counter
@@ -311,16 +420,58 @@
 
     type();
 
-    // Hover effect for cards
-    document.querySelectorAll('.link-card').forEach(link => {
-      link.addEventListener('mousemove', (e) => {
-        const rect = link.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        link.style.setProperty('--x', `${x}px`);
-        link.style.setProperty('--y', `${y}px`);
-      });
+    // Music player functionality
+    const audio = document.getElementById('audio-element');
+    const playButton = document.getElementById('playButton');
+    const progressBar = document.getElementById('progressBar');
+    const albumArt = document.querySelector('.album-art');
+    let isPlaying = false;
+    let rotation = 0;
+
+    playButton.addEventListener('click', togglePlayback);
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('play', () => {
+      isPlaying = true;
+      updatePlayButton();
+      startRotation();
     });
+    audio.addEventListener('pause', () => {
+      isPlaying = false;
+      updatePlayButton();
+      stopRotation();
+    });
+
+    function togglePlayback() {
+      isPlaying ? audio.pause() : audio.play();
+    }
+
+    function updateProgress() {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function updatePlayButton() {
+      playButton.innerHTML = isPlaying ? 
+        '<i class="fas fa-pause"></i>' : 
+        '<i class="fas fa-play"></i>';
+    }
+
+    function startRotation() {
+      albumArt.style.animation = 'rotate 20s linear infinite';
+    }
+
+    function stopRotation() {
+      albumArt.style.animation = 'none';
+      const currentRotation = rotation % 360;
+      albumArt.style.transform = `rotate(${currentRotation}deg)`;
+    }
+
+    // Rotation animation sync
+    setInterval(() => {
+      if (isPlaying) {
+        rotation += 0.5;
+      }
+    }, 50);
   </script>
 </body>
 </html>
