@@ -299,18 +299,37 @@
       padding: 1.5rem;
       border: 1px solid rgba(255,255,255,0.1);
       transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .music-player::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--main-gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
     }
 
     .music-player:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.2);
       transform: translateY(-2px);
+    }
+
+    .music-player:hover::before {
+      opacity: 0.05;
     }
 
     .music-controls {
       display: flex;
       align-items: center;
       gap: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     .album-art {
@@ -324,6 +343,7 @@
       background-clip: content-box, border-box;
       transition: var(--transition);
       flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .album-art.spin {
@@ -370,11 +390,12 @@
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 12px rgba(123, 97, 255, 0.3);
     }
 
     .play-button:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(123, 97, 255, 0.4);
+      box-shadow: 0 6px 16px rgba(123, 97, 255, 0.4);
     }
 
     .play-button i {
@@ -392,6 +413,7 @@
       overflow: hidden;
       cursor: pointer;
       position: relative;
+      z-index: 1;
     }
 
     .progress-container:hover .progress-bar {
