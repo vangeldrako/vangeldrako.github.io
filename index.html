@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Serotonin</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: radial-gradient(circle at 50% 50%, #0f0f0f 0%, #050505 100%);
@@ -13,6 +13,8 @@
       --glass: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
       --main-gradient: linear-gradient(45deg, #7B61FF 0%, #61FFCA 100%);
       --border-gradient: linear-gradient(45deg, #7B61FF 30%, #61FFCA 100%);
+      --glow: 0 0 15px rgba(123, 97, 255, 0.5);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     * {
@@ -23,13 +25,32 @@
 
     body {
       min-height: 100vh;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: var(--bg);
       color: var(--text-primary);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1rem;
+      overflow-x: hidden;
+    }
+
+    /* Floating particles background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .container {
@@ -37,15 +58,19 @@
       gap: 2rem;
       background: var(--glass);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 32px;
       padding: 2.5rem;
       border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 12px 48px rgba(0,0,0,0.3);
-      max-width: 800px;
+      box-shadow: var(--glow), 0 12px 48px rgba(0,0,0,0.5);
+      max-width: 900px;
       width: 100%;
       margin: 1rem;
       overflow: hidden;
       position: relative;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
     .container::before {
@@ -67,6 +92,19 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       z-index: -1;
+      opacity: 0.8;
+    }
+
+    .container::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(123, 97, 255, 0.1) 0%, transparent 70%);
+      z-index: -2;
+      animation: pulse 8s infinite alternate;
     }
 
     .profile-section {
@@ -83,11 +121,18 @@
       border-radius: 50%;
       padding: 3px;
       background: var(--border-gradient);
+      box-shadow: var(--glow);
+      transition: var(--transition);
+    }
+
+    .avatar-wrapper:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(123, 97, 255, 0.7);
     }
 
     .avatar {
-      width: 160px;
-      height: 160px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
@@ -95,16 +140,36 @@
       z-index: 1;
       background: var(--bg);
       animation: float 6s ease-in-out infinite;
+      transition: var(--transition);
+    }
+
+    .avatar:hover {
+      filter: brightness(1.1);
     }
 
     .name {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 700;
       background: var(--main-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
       text-align: center;
+      text-shadow: 0 4px 10px rgba(123, 97, 255, 0.3);
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .name::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--main-gradient);
+      border-radius: 3px;
     }
 
     .bio-section {
@@ -116,13 +181,15 @@
     }
 
     .bio-text {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      min-height: 60px;
+      font-size: 1.3rem;
+      line-height: 1.7;
+      min-height: 80px;
       background: var(--main-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       position: relative;
+      font-weight: 400;
+      padding: 1rem 0;
     }
 
     .bio-text::after {
@@ -136,7 +203,7 @@
     .links-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
+      gap: 1.2rem;
       margin-bottom: 2rem;
     }
 
@@ -144,19 +211,43 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       padding: 1.5rem;
       background: rgba(255,255,255,0.05);
       border-radius: 16px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       text-decoration: none;
       color: inherit;
       min-width: 0;
       text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     .link-card:hover {
       background: rgba(123,97,255,0.15);
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(123, 97, 255, 0.2);
+      border-color: rgba(123, 97, 255, 0.3);
+    }
+
+    .link-card i {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      background: var(--main-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: var(--transition);
+    }
+
+    .link-card:hover i {
+      transform: scale(1.2);
+    }
+
+    .link-card span {
+      font-size: 1rem;
+      font-weight: 500;
+      transition: var(--transition);
     }
 
     .view-counter {
@@ -165,32 +256,54 @@
       border-radius: 24px;
       font-size: 0.95rem;
       align-self: flex-start;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+
+    .view-counter:hover {
+      background: rgba(123,97,255,0.15);
+      transform: translateY(-2px);
     }
 
     .music-player {
       width: 100%;
       background: rgba(255,255,255,0.05);
       border-radius: 20px;
-      padding: 1rem;
+      padding: 1.2rem;
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .music-player:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      border-color: rgba(123, 97, 255, 0.3);
     }
 
     .music-controls {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
     }
 
     .album-art {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 12px;
       object-fit: cover;
       border: 2px solid transparent;
       background-image: var(--border-gradient);
       background-origin: border-box;
       background-clip: content-box, border-box;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .album-art:hover {
+      transform: scale(1.05);
     }
 
     .track-info {
@@ -199,7 +312,8 @@
     }
 
     .track-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
       background: var(--main-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -209,33 +323,42 @@
     }
 
     .track-artist {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       opacity: 0.8;
       margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .play-button {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       background: var(--main-gradient);
       border: none;
       color: white;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .play-button:hover {
       transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(123, 97, 255, 0.4);
     }
 
     .progress-container {
       width: 100%;
-      height: 4px;
+      height: 5px;
       background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      margin-top: 1rem;
+      border-radius: 3px;
+      margin-top: 1.2rem;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .progress-bar {
@@ -243,8 +366,28 @@
       height: 100%;
       background: var(--main-gradient);
       transition: width 0.1s linear;
+      position: relative;
     }
 
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .progress-container:hover .progress-bar::after {
+      opacity: 1;
+    }
+
+    /* Animations */
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-12px); }
@@ -259,19 +402,37 @@
       to { transform: rotate(360deg); }
     }
 
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 0.5; }
+      100% { transform: scale(1.2); opacity: 0.2; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Responsive styles */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
-        padding: 1.5rem;
+        padding: 1.8rem;
+        max-width: 95%;
       }
       
       .avatar {
-        width: 120px;
-        height: 120px;
+        width: 140px;
+        height: 140px;
       }
       
       .name {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
 
       .links-grid {
@@ -283,17 +444,49 @@
       }
 
       .album-art {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
+      }
+
+      .bio-text {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+        border-radius: 24px;
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+      }
+
+      .name {
+        font-size: 1.8rem;
+      }
+
+      .music-player {
+        padding: 1rem;
+      }
+
+      .link-card {
+        padding: 1.2rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Floating particles background -->
+  <div class="particles" id="particles"></div>
+
   <div class="container">
     <div class="profile-section">
       <div class="avatar-wrapper">
-        <img src="https://cdn.discordapp.com/attachments/813581388275122207/1372933822806626404/4tuiaU3z.jpg?ex=682893c3&is=68274243&hm=fa99334de31d195b9d484ba4d611cbf9a93b4e021b3d918a9a88816a2ab87631&" 
+        <img src="https://cdn.discordapp.com/attachments/823104161540866069/1373318510922694676/7EIo9wnt.jpg?ex=6829fa08&is=6828a888&hm=79e9294a6b102b78a7f95da25f3396e118f64605b7b24d8391ce8ddcd3b37686&" 
              alt="Serotonin" 
              class="avatar">
       </div>
@@ -312,7 +505,7 @@
             <i class="fas fa-play"></i>
           </button>
         </div>
-        <div class="progress-container">
+        <div class="progress-container" id="progressContainer">
           <div class="progress-bar" id="progressBar"></div>
         </div>
       </div>
@@ -343,6 +536,35 @@
   <audio id="audio-element" src="https://cdn.discordapp.com/attachments/813581388275122207/1372987589145133197/rxMTHt8C.mp3?ex=6828c5d6&is=68277456&hm=4b6a8d5635f063aee44ae5d3dfc385879fc44e7a606899a4b56f6ff7a14aa77e&"></audio>
 
   <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 30 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 1px and 3px
+        const size = Math.random() * 2 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    createParticles();
+
     // View counter
     const viewsElement = document.getElementById('views');
     fetch('https://abacus.jasoncameron.dev/hit/frongongongongong-dopamine.gay/views')
@@ -359,11 +581,12 @@
     let hue = 0;
     
     function updateColors() {
-      hue = (hue + 0.5) % 360;
+      hue = (hue + 0.3) % 360;
       root.style.setProperty('--main-gradient', 
         `linear-gradient(45deg, hsl(${hue} 80% 60%) 0%, hsl(${(hue + 120) % 360} 80% 60%) 100%)`);
       root.style.setProperty('--border-gradient', 
         `linear-gradient(45deg, hsl(${hue} 80% 60%) 30%, hsl(${(hue + 120) % 360} 80% 60%) 100%)`);
+      root.style.setProperty('--glow', `0 0 15px hsla(${hue}, 80%, 60%, 0.5)`);
       requestAnimationFrame(updateColors);
     }
     updateColors();
@@ -414,16 +637,17 @@
         }
       }
 
-      const speed = isDeleting ? 50 : 100;
+      const speed = isDeleting ? 30 : 80 + Math.random() * 50;
       setTimeout(type, speed);
     }
 
-    type();
+    setTimeout(type, 1000);
 
     // Music player functionality
     const audio = document.getElementById('audio-element');
     const playButton = document.getElementById('playButton');
     const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
     const albumArt = document.querySelector('.album-art');
     let isPlaying = false;
     let rotation = 0;
@@ -440,6 +664,11 @@
       updatePlayButton();
       stopRotation();
     });
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      audio.play();
+    });
+    progressContainer.addEventListener('click', seek);
 
     function togglePlayback() {
       isPlaying ? audio.pause() : audio.play();
@@ -448,6 +677,12 @@
     function updateProgress() {
       const progress = (audio.currentTime / audio.duration) * 100;
       progressBar.style.width = `${progress}%`;
+    }
+
+    function seek(e) {
+      const rect = progressContainer.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pos * audio.duration;
     }
 
     function updatePlayButton() {
@@ -472,6 +707,19 @@
         rotation += 0.5;
       }
     }, 50);
+
+    // Add hover effect to progress bar
+    progressContainer.addEventListener('mousemove', (e) => {
+      const rect = progressContainer.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      progressBar.style.width = `${pos * 100}%`;
+    });
+
+    progressContainer.addEventListener('mouseleave', () => {
+      if (!isPlaying) return;
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+    });
   </script>
 </body>
 </html>
