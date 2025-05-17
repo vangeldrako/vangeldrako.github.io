@@ -10,9 +10,9 @@
     :root {
       --bg: radial-gradient(circle at 50% 50%, #0f0f0f 0%, #050505 100%);
       --text-primary: rgba(255,255,255,0.98);
-      --glass: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
-      --main-gradient: linear-gradient(45deg, #7B61FF 0%, #61FFCA 100%);
-      --border-gradient: linear-gradient(45deg, #7B61FF 30%, #61FFCA 100%);
+      --glass: linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%);
+      --main-gradient: linear-gradient(45deg, #FF61CA 0%, #7B61FF 100%);
+      --border-gradient: linear-gradient(45deg, #FF61CA 30%, #7B61FF 100%);
       --glow: 0 0 15px rgba(123, 97, 255, 0.5);
       --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -35,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* Floating particles background */
     .particles {
       position: fixed;
       top: 0;
@@ -48,20 +47,24 @@
 
     .particle {
       position: absolute;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 50%;
       pointer-events: none;
+      width: 3px;
+      height: 3px;
+      animation: float 20s linear infinite;
+      transform: translateZ(0);
     }
 
     .container {
       display: flex;
       gap: 2rem;
       background: var(--glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       border-radius: 32px;
       padding: 2.5rem;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
       box-shadow: var(--glow), 0 12px 48px rgba(0,0,0,0.5);
       max-width: 900px;
       width: 100%;
@@ -82,7 +85,8 @@
       bottom: 0;
       border-radius: 32px;
       padding: 2px;
-      background: var(--border-gradient);
+      background: linear-gradient(45deg, #FF6161 0%, #7B61FF 33%, #6161FF 66%, #FF61CA 100%);
+      background-size: 400% 400%;
       -webkit-mask: 
         linear-gradient(#fff 0 0) content-box, 
         linear-gradient(#fff 0 0);
@@ -92,7 +96,8 @@
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       z-index: -1;
-      opacity: 0.8;
+      opacity: 0.7;
+      animation: gradientShift 15s ease infinite;
     }
 
     .container::after {
@@ -125,11 +130,6 @@
       transition: var(--transition);
     }
 
-    .avatar-wrapper:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(123, 97, 255, 0.7);
-    }
-
     .avatar {
       width: 180px;
       height: 180px;
@@ -140,11 +140,6 @@
       z-index: 1;
       background: var(--bg);
       animation: float 6s ease-in-out infinite;
-      transition: var(--transition);
-    }
-
-    .avatar:hover {
-      filter: brightness(1.1);
     }
 
     .name {
@@ -187,9 +182,9 @@
       background: var(--main-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      position: relative;
       font-weight: 400;
       padding: 1rem 0;
+      position: relative;
     }
 
     .bio-text::after {
@@ -240,16 +235,6 @@
       transition: var(--transition);
     }
 
-    .link-card:hover i {
-      transform: scale(1.2);
-    }
-
-    .link-card span {
-      font-size: 1rem;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-
     .view-counter {
       background: rgba(255,255,255,0.05);
       padding: 0.8rem 1.5rem;
@@ -260,27 +245,12 @@
       transition: var(--transition);
     }
 
-    .view-counter:hover {
-      background: rgba(123,97,255,0.15);
-      transform: translateY(-2px);
-    }
-
     .music-player {
       width: 100%;
       background: rgba(255,255,255,0.05);
       border-radius: 20px;
       padding: 1.2rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: var(--transition);
-    }
-
-    .music-player:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      border-color: rgba(123, 97, 255, 0.3);
     }
 
     .music-controls {
@@ -298,16 +268,16 @@
       background-image: var(--border-gradient);
       background-origin: border-box;
       background-clip: content-box, border-box;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: var(--transition);
+      flex-shrink: 0;
     }
 
-    .album-art:hover {
-      transform: scale(1.05);
+    .album-art.spin {
+      animation: rotate 20s linear infinite;
     }
 
     .track-info {
-      flex-grow: 1;
+      flex: 1;
       min-width: 0;
     }
 
@@ -339,16 +309,10 @@
       border: none;
       color: white;
       cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .play-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 15px rgba(123, 97, 255, 0.4);
     }
 
     .progress-container {
@@ -366,40 +330,22 @@
       height: 100%;
       background: var(--main-gradient);
       transition: width 0.1s linear;
-      position: relative;
-    }
-
-    .progress-bar::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 10px;
-      height: 10px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-
-    .progress-container:hover .progress-bar::after {
-      opacity: 1;
-    }
-
-    /* Animations */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-    }
-
-    @keyframes blink {
-      50% { opacity: 0 }
     }
 
     @keyframes rotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(10px, 10px) rotate(5deg); }
+      50% { transform: translate(-10px, 5px) rotate(-5deg); }
+      75% { transform: translate(7px, -5px) rotate(3deg); }
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
 
     @keyframes pulse {
@@ -418,36 +364,42 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* Responsive styles */
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
         padding: 1.8rem;
         max-width: 95%;
       }
-      
       .avatar {
         width: 140px;
         height: 140px;
       }
-      
       .name {
         font-size: 2rem;
       }
-
       .links-grid {
         grid-template-columns: 1fr;
       }
-
       .view-counter {
         align-self: center;
       }
-
-      .album-art {
-        width: 60px;
-        height: 60px;
+      .music-controls {
+        gap: 1rem;
       }
-
+      .album-art {
+        width: 50px;
+        height: 50px;
+      }
+      .play-button {
+        width: 40px;
+        height: 40px;
+      }
+      .track-title {
+        font-size: 1rem;
+      }
+      .track-artist {
+        font-size: 0.85rem;
+      }
       .bio-text {
         font-size: 1.2rem;
         text-align: center;
@@ -459,20 +411,16 @@
         padding: 1.5rem;
         border-radius: 24px;
       }
-
       .avatar {
         width: 120px;
         height: 120px;
       }
-
       .name {
         font-size: 1.8rem;
       }
-
       .music-player {
         padding: 1rem;
       }
-
       .link-card {
         padding: 1.2rem;
       }
@@ -480,13 +428,12 @@
   </style>
 </head>
 <body>
-  <!-- Floating particles background -->
   <div class="particles" id="particles"></div>
 
   <div class="container">
     <div class="profile-section">
       <div class="avatar-wrapper">
-        <img src="https://cdn.discordapp.com/attachments/823104161540866069/1373318510922694676/7EIo9wnt.jpg?ex=6829fa08&is=6828a888&hm=79e9294a6b102b78a7f95da25f3396e118f64605b7b24d8391ce8ddcd3b37686&" 
+        <img src="https://cdn.nest.rip/uploads/bc208f97-57ce-4fe2-b1bb-a48d9ab93e3e.jpg" 
              alt="Serotonin" 
              class="avatar">
       </div>
@@ -494,7 +441,7 @@
 
       <div class="music-player">
         <div class="music-controls">
-          <img src="https://i.scdn.co/image/ab67616d00001e02ac3b3e7940daf3d5d2597d71" 
+          <img src="https://cdn.nest.rip/uploads/bba6613b-c1d3-49ce-872d-bc3388a717fe.jpeg" 
                class="album-art" 
                alt="Album Art">
           <div class="track-info">
@@ -533,62 +480,60 @@
     </div>
   </div>
 
-  <audio id="audio-element" src="https://cdn.discordapp.com/attachments/813581388275122207/1372987589145133197/rxMTHt8C.mp3?ex=6828c5d6&is=68277456&hm=4b6a8d5635f063aee44ae5d3dfc385879fc44e7a606899a4b56f6ff7a14aa77e&"></audio>
+  <audio id="audio-element" src="https://cdn.nest.rip/uploads/332b5d27-e1ba-4a13-bcee-f260f15f7411.mp3"></audio>
 
   <script>
-    // Create floating particles
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
-      const particleCount = window.innerWidth < 768 ? 30 : 50;
+      const particleCount = window.innerWidth < 768 ? 100 : 200;
       
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-        
-        // Random size between 1px and 3px
-        const size = Math.random() * 2 + 1;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Random position
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        
-        // Random animation
+        const size = Math.random() * 4 + 2;
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
         const duration = Math.random() * 20 + 10;
         const delay = Math.random() * 5;
-        particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        
+        particle.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${left}%;
+          top: ${top}%;
+          animation-duration: ${duration}s;
+          animation-delay: ${delay}s;
+        `;
         
         particlesContainer.appendChild(particle);
       }
     }
-    
     createParticles();
 
     // View counter
     const viewsElement = document.getElementById('views');
     fetch('https://abacus.jasoncameron.dev/hit/frongongongongong-dopamine.gay/views')
       .then(res => res.json())
-      .then(data => {
-        viewsElement.textContent = data.value.toLocaleString();
-      })
-      .catch(() => {
-        viewsElement.textContent = '7 maybe 7.2';
-      });
+      .then(data => viewsElement.textContent = data.value.toLocaleString())
+      .catch(() => viewsElement.textContent = '7k+');
 
-    // Color cycling animation
-    const root = document.documentElement;
-    let hue = 0;
-    
+    // Gradient animation
+    const gradients = [
+      ['#FF61CA', '#7B61FF'],
+      ['#6161FF', '#FF6161'],
+      ['#7B61FF', '#6161FF'],
+      ['#FF6161', '#FF61CA']
+    ];
+    let currentGradient = 0;
+
     function updateColors() {
-      hue = (hue + 0.3) % 360;
-      root.style.setProperty('--main-gradient', 
-        `linear-gradient(45deg, hsl(${hue} 80% 60%) 0%, hsl(${(hue + 120) % 360} 80% 60%) 100%)`);
-      root.style.setProperty('--border-gradient', 
-        `linear-gradient(45deg, hsl(${hue} 80% 60%) 30%, hsl(${(hue + 120) % 360} 80% 60%) 100%)`);
-      root.style.setProperty('--glow', `0 0 15px hsla(${hue}, 80%, 60%, 0.5)`);
-      requestAnimationFrame(updateColors);
+      const [start, end] = gradients[currentGradient];
+      document.documentElement.style.setProperty('--main-gradient', `linear-gradient(45deg, ${start} 0%, ${end} 100%)`);
+      document.documentElement.style.setProperty('--border-gradient', `linear-gradient(45deg, ${start} 30%, ${end} 100%)`);
+      document.documentElement.style.setProperty('--glow', `0 0 25px ${start}80`);
+      currentGradient = (currentGradient + 1) % gradients.length;
     }
+    setInterval(updateColors, 8000);
     updateColors();
 
     // Typewriter effect
@@ -596,7 +541,8 @@
     const texts = [
       "I write, code and make music",
       "Not looking for work",
-      "I don't have a lot of free time"
+      "I don't have a lot of free time",
+      "Feel free to reach out"
     ];
     let textIndex = 0;
     let charIndex = 0;
@@ -605,7 +551,6 @@
 
     function type() {
       if (typingPaused) return;
-      
       const currentText = texts[textIndex];
       
       if (!isDeleting) {
@@ -637,89 +582,41 @@
         }
       }
 
-      const speed = isDeleting ? 30 : 80 + Math.random() * 50;
-      setTimeout(type, speed);
+      setTimeout(type, isDeleting ? 30 : 80 + Math.random() * 50);
     }
-
     setTimeout(type, 1000);
 
-    // Music player functionality
+    // Music player
     const audio = document.getElementById('audio-element');
     const playButton = document.getElementById('playButton');
     const progressBar = document.getElementById('progressBar');
     const progressContainer = document.getElementById('progressContainer');
     const albumArt = document.querySelector('.album-art');
-    let isPlaying = false;
-    let rotation = 0;
 
-    playButton.addEventListener('click', togglePlayback);
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('play', () => {
-      isPlaying = true;
-      updatePlayButton();
-      startRotation();
-    });
-    audio.addEventListener('pause', () => {
-      isPlaying = false;
-      updatePlayButton();
-      stopRotation();
-    });
-    audio.addEventListener('ended', () => {
-      audio.currentTime = 0;
-      audio.play();
-    });
-    progressContainer.addEventListener('click', seek);
-
-    function togglePlayback() {
-      isPlaying ? audio.pause() : audio.play();
-    }
-
-    function updateProgress() {
+    audio.addEventListener('timeupdate', () => {
       const progress = (audio.currentTime / audio.duration) * 100;
       progressBar.style.width = `${progress}%`;
-    }
+    });
 
-    function seek(e) {
+    audio.addEventListener('play', () => {
+      albumArt.classList.add('spin');
+      playButton.innerHTML = '<i class="fas fa-pause"></i>';
+    });
+
+    audio.addEventListener('pause', () => {
+      albumArt.classList.remove('spin');
+      playButton.innerHTML = '<i class="fas fa-play"></i>';
+    });
+
+    playButton.addEventListener('click', () => {
+      audio.paused ? audio.play() : audio.pause();
+    });
+
+    progressContainer.addEventListener('click', (e) => {
       const rect = progressContainer.getBoundingClientRect();
       const pos = (e.clientX - rect.left) / rect.width;
       audio.currentTime = pos * audio.duration;
-    }
-
-    function updatePlayButton() {
-      playButton.innerHTML = isPlaying ? 
-        '<i class="fas fa-pause"></i>' : 
-        '<i class="fas fa-play"></i>';
-    }
-
-    function startRotation() {
-      albumArt.style.animation = 'rotate 20s linear infinite';
-    }
-
-    function stopRotation() {
-      albumArt.style.animation = 'none';
-      const currentRotation = rotation % 360;
-      albumArt.style.transform = `rotate(${currentRotation}deg)`;
-    }
-
-    // Rotation animation sync
-    setInterval(() => {
-      if (isPlaying) {
-        rotation += 0.5;
-      }
-    }, 50);
-
-    // Add hover effect to progress bar
-    progressContainer.addEventListener('mousemove', (e) => {
-      const rect = progressContainer.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      progressBar.style.width = `${pos * 100}%`;
-    });
-
-    progressContainer.addEventListener('mouseleave', () => {
-      if (!isPlaying) return;
-      const progress = (audio.currentTime / audio.duration) * 100;
-      progressBar.style.width = `${progress}%`;
     });
   </script>
 </body>
-</html>
+  </html>
