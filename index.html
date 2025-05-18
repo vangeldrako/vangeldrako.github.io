@@ -254,10 +254,11 @@
       transition: var(--transition);
       flex-shrink: 0;
       filter: grayscale(30%);
+      transform: rotate(0deg);
     }
 
     .album-art.spin {
-      animation: rotate 20s linear infinite;
+      animation: rotate 20s linear infinite running;
       filter: grayscale(0%);
     }
 
@@ -508,7 +509,6 @@
   <audio id="audio-element" src="https://cdn.nest.rip/uploads/332b5d27-e1ba-4a13-bcee-f260f15f7411.mp3"></audio>
 
   <script>
-    // Mouse follow effect
     document.addEventListener('mousemove', (e) => {
       const container = document.querySelector('.container');
       const { left, top, width, height } = container.getBoundingClientRect();
@@ -518,14 +518,12 @@
       container.style.setProperty('--y', `${y}%`);
     });
 
-    // View counter
     const viewsElement = document.getElementById('views');
     fetch('https://abacus.jasoncameron.dev/hit/frongongongongong-dopamine.gay/views')
       .then(res => res.json())
       .then(data => viewsElement.textContent = data.value.toLocaleString())
       .catch(() => viewsElement.textContent = '7k+');
 
-    // Typewriter effect
     const typewriter = document.getElementById('typewriter');
     const texts = [
       "I write, code and make music",
@@ -575,12 +573,28 @@
     }
     setTimeout(type, 1000);
 
-    // Music player
     const audio = document.getElementById('audio-element');
     const playButton = document.getElementById('playButton');
     const progressBar = document.getElementById('progressBar');
     const progressContainer = document.getElementById('progressContainer');
     const albumArt = document.querySelector('.album-art');
+    let rotationAngle = 0;
+    let lastTimestamp = 0;
+
+    function updateRotation(timestamp) {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const delta = timestamp - lastTimestamp;
+      
+      if (!audio.paused) {
+        rotationAngle = (rotationAngle + (delta * 0.018)) % 360;
+        albumArt.style.transform = `rotate(${rotationAngle}deg)`;
+      }
+      
+      lastTimestamp = timestamp;
+      requestAnimationFrame(updateRotation);
+    }
+
+    requestAnimationFrame(updateRotation);
 
     audio.addEventListener('timeupdate', () => {
       const progress = (audio.currentTime / audio.duration) * 100;
@@ -588,12 +602,12 @@
     });
 
     audio.addEventListener('play', () => {
-      albumArt.classList.add('spin');
+      albumArt.style.filter = 'grayscale(0%)';
       playButton.innerHTML = '<i class="fas fa-pause"></i>';
     });
 
     audio.addEventListener('pause', () => {
-      albumArt.classList.remove('spin');
+      albumArt.style.filter = 'grayscale(30%)';
       playButton.innerHTML = '<i class="fas fa-play"></i>';
     });
 
@@ -607,7 +621,6 @@
       audio.currentTime = pos * audio.duration;
     });
 
-    // Link card hover effect
     document.querySelectorAll('.link-card').forEach(card => {
       card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-5px)';
