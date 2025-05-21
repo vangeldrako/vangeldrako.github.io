@@ -171,6 +171,7 @@
     .links-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(2, 1fr);
       gap: 1.5rem;
       margin-bottom: 2rem;
       transform-style: preserve-3d;
@@ -497,15 +498,19 @@
       <p class="bio-text" id="typewriter"></p>
 
       <div class="links-grid">
-        <a href="https://www.last.fm/user/ignosco" class="link-card" target="_blank">
+        <a href="https://www.last.fm/user/ignosco" class="link-card" target="_blank" style="grid-column: 1; grid-row: 2;">
           <i class="fab fa-lastfm"></i>
           <span>Last.fm</span>
         </a>
-        <a href="https://t.me/vanzhel" class="link-card" target="_blank">
+        <a href="https://u.serotonin.gay" class="link-card" target="_blank" style="grid-column: 2; grid-row: 1;">
+          <i class="fas fa-folder"></i>
+          <span>File Host</span>
+        </a>
+        <a href="https://t.me/vanzhel" class="link-card" target="_blank" style="grid-column: 2; grid-row: 2;">
           <i class="fab fa-telegram"></i>
           <span>Telegram</span>
         </a>
-        <a href="https://juggi.ng/moon" class="link-card" target="_blank">
+        <a href="https://juggi.ng/moon" class="link-card" target="_blank" style="grid-column: 3; grid-row: 2;">
           <i class="fas fa-moon"></i>
           <span>Juggi.ng</span>
         </a>
