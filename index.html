@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Serotonin</title>
-  
+
   <!-- Discord Embed Meta Tags -->
-  <meta content="is Ts my bio site..💔 💔" property="og:title">
+  <meta content="is Ts my bio site..ðŸ’” ðŸ’”" property="og:title">
   <meta content="Yea Ts" property="og:description">
   <meta content="https://cdn.nest.rip/uploads/bc208f97-57ce-4fe2-b1bb-a48d9ab93e3e.jpg" property="og:image">
   <meta content="#7B61FF" name="theme-color">
-  
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -19,6 +19,9 @@
       --text-primary: rgba(255,255,255,0.98);
       --accent: #7B61FF;
       --accent-dark: #5741cc;
+      --discord: #5865F2;
+      --discord-dark: #4752c4;
+      --success: #43b581;
       --glass: rgba(255,255,255,0.03);
       --border: rgba(255,255,255,0.1);
       --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -204,6 +207,7 @@
       overflow: hidden;
       transform-style: preserve-3d;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
     }
 
     .link-card::before {
@@ -238,6 +242,61 @@
       font-weight: 500;
       position: relative;
       z-index: 1;
+    }
+
+    .discord-card {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .discord-card i {
+      color: var(--discord);
+    }
+
+    .discord-card.copied {
+      border-color: var(--success);
+    }
+
+    .discord-card.copied::before {
+      background: var(--success);
+      opacity: 0.05;
+    }
+
+    .discord-card.copied i {
+      color: var(--success);
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    .tooltip::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0 5px 5px 5px;
+      border-style: solid;
+      border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
     }
 
     .music-player {
@@ -386,6 +445,12 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes copied {
+      0% { transform: translateY(-5px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(-5px); }
+    }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -436,6 +501,11 @@
       .bio-text {
         font-size: 1.3rem;
         text-align: center;
+      }
+
+      .discord-card {
+        grid-column: auto;
+        grid-row: auto;
       }
     }
 
@@ -512,6 +582,11 @@
       <p class="bio-text" id="typewriter"></p>
 
       <div class="links-grid">
+        <div class="link-card discord-card" id="discordBtn">
+          <i class="fab fa-discord"></i>
+          <span>Discord</span>
+          <div class="tooltip" id="tooltip">Click to copy Discord username</div>
+        </div>
         <a href="https://www.last.fm/user/ignosco" class="link-card" target="_blank" style="grid-column: 1; grid-row: 2;">
           <i class="fab fa-lastfm"></i>
           <span>Last.fm</span>
@@ -569,11 +644,11 @@
     function type() {
       if (typingPaused) return;
       const currentText = texts[textIndex];
-      
+
       if (!isDeleting) {
         typewriter.textContent = currentText.slice(0, charIndex + 1);
         charIndex++;
-        
+
         if (charIndex === currentText.length) {
           typingPaused = true;
           setTimeout(() => {
@@ -586,7 +661,7 @@
       } else {
         typewriter.textContent = currentText.slice(0, charIndex - 1);
         charIndex--;
-        
+
         if (charIndex === 0) {
           typingPaused = true;
           isDeleting = false;
@@ -614,12 +689,12 @@
     function updateRotation(timestamp) {
       if (!lastTimestamp) lastTimestamp = timestamp;
       const delta = timestamp - lastTimestamp;
-      
+
       if (!audio.paused) {
         rotationAngle = (rotationAngle + (delta * 0.018)) % 360;
         albumArt.style.transform = `rotate(${rotationAngle}deg)`;
       }
-      
+
       lastTimestamp = timestamp;
       requestAnimationFrame(updateRotation);
     }
@@ -654,11 +729,54 @@
     document.querySelectorAll('.link-card').forEach(card => {
       card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-5px)';
+        if (card.id === 'discordBtn') {
+          document.getElementById('tooltip').classList.add('visible');
+        }
       });
-      
+
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0)';
+        if (card.id === 'discordBtn') {
+          document.getElementById('tooltip').classList.remove('visible');
+        }
       });
+    });
+
+    // Discord button clipboard functionality
+    const discordBtn = document.getElementById('discordBtn');
+    const tooltip = document.getElementById('tooltip');
+    
+    discordBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('disordercover')
+        .then(() => {
+          discordBtn.classList.add('copied');
+          tooltip.textContent = 'Copied!';
+          tooltip.classList.add('visible');
+          
+          // Animation for feedback
+          discordBtn.style.animation = 'copied 0.5s ease';
+          
+          setTimeout(() => {
+            discordBtn.classList.remove('copied');
+            discordBtn.style.animation = '';
+            tooltip.textContent = 'Click to copy Discord username';
+            if (!discordBtn.matches(':hover')) {
+              tooltip.classList.remove('visible');
+            }
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Could not copy text: ', err);
+          tooltip.textContent = 'Failed to copy';
+          tooltip.classList.add('visible');
+          
+          setTimeout(() => {
+            tooltip.textContent = 'Click to copy Discord username';
+            if (!discordBtn.matches(':hover')) {
+              tooltip.classList.remove('visible');
+            }
+          }, 2000);
+        });
     });
   </script>
 </body>
