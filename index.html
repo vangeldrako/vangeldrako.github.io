@@ -1,1581 +1,1180 @@
-<!DOCTYPE html>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Serotonin</title>  
+  <!-- Discord Embed Meta Tags -->  
+  <meta content="is Ts my bio site.." property="og:title">  
+  <meta content="Yea Ts" property="og:description">  
+  <meta content="https://cdn.junkie.monster/files/3b2b1730-ac15-4cb7-bac7-ec13a70ca7ec/huyBKtY/3eb2979e6c08b37fa6de94f0f19dfc3f.320x320x1%20(1).jpg" property="og:image">  
+  <meta content="#7B61FF" name="theme-color">  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  
+  <style>  
 
-<html lang="en">
+    :root {  
 
-<head>
+      --bg: #0a0a0a;  
 
-  <meta charset="UTF-8">
+      --text-primary: rgba(255,255,255,0.98);  
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      --accent: #7B61FF;  
 
-  <title>Serotonin</title>
+      --accent-dark: #5741cc;  
 
+      --discord: #5865F2;  
 
+      --discord-dark: #4752c4;  
 
-  <!-- Discord Embed Meta Tags -->
+      --success: #43b581;  
 
-  <meta content="is Ts my bio site.." property="og:title">
+      --glass: rgba(255,255,255,0.03);  
 
-  <meta content="Yea Ts" property="og:description">
+      --border: rgba(255,255,255,0.1);  
 
-  <meta content="https://cdn.nest.rip/uploads/bc208f97-57ce-4fe2-b1bb-a48d9ab93e3e.jpg" property="og:image">
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);  
 
-  <meta content="#7B61FF" name="theme-color">
+    }  
 
+    * {  
 
+      margin: 0;  
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      padding: 0;  
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      box-sizing: border-box;  
 
-  <style>
+    }  
 
-    :root {
+    body {  
 
-      --bg: #0a0a0a;
+      min-height: 100vh;  
 
-      --text-primary: rgba(255,255,255,0.98);
+      font-family: 'Poppins', sans-serif;  
 
-      --accent: #7B61FF;
+      background: var(--bg);  
 
-      --accent-dark: #5741cc;
+      color: var(--text-primary);  
 
-      --discord: #5865F2;
+      display: flex;  
 
-      --discord-dark: #4752c4;
+      align-items: center;  
 
-      --success: #43b581;
+      justify-content: center;  
 
-      --glass: rgba(255,255,255,0.03);
+      padding: 1rem;  
 
-      --border: rgba(255,255,255,0.1);
+      overflow-x: hidden;  
 
-      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      perspective: 1000px;  
 
-    }
+      background-image: url('https://images.pexels.com/photos/1629236/pexels-photo-1629236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');  
 
+      background-size: cover;  
 
+      background-position: center;  
 
-    * {
+      background-blend-mode: overlay;  
 
-      margin: 0;
+    }  
 
-      padding: 0;
+    .container {  
 
-      box-sizing: border-box;
+      display: flex;  
 
-    }
+      gap: 2.5rem;  
 
+      background: rgba(10, 10, 10, 0.85);  
 
+      backdrop-filter: blur(30px);  
 
-    body {
+      -webkit-backdrop-filter: blur(30px);  
 
-      min-height: 100vh;
+      border-radius: 32px;  
 
-      font-family: 'Poppins', sans-serif;
+      padding: 3rem;  
 
-      background: var(--bg);
+      border: 1px solid #2a2a2a;  
 
-      color: var(--text-primary);
+      max-width: 1000px;  
 
-      display: flex;
+      width: 100%;  
 
-      align-items: center;
+      margin: 1rem;  
 
-      justify-content: center;
+      position: relative;  
 
-      padding: 1rem;
+      transform-style: preserve-3d;  
 
-      overflow-x: hidden;
+      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;  
 
-      perspective: 1000px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);  
 
-      background-image: url('https://images.pexels.com/photos/1629236/pexels-photo-1629236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    }  
 
-      background-size: cover;
+    .container::before {  
 
-      background-position: center;
+      content: '';  
 
-      background-blend-mode: overlay;
+      position: absolute;  
 
-    }
+      inset: 0;  
 
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),   
 
+                              rgba(123, 97, 255, 0.15) 0%,  
 
-    .container {
+                              transparent 60%);  
 
-      display: flex;
+      border-radius: 32px;  
 
-      gap: 2.5rem;
+      opacity: 0;  
 
-      background: rgba(10, 10, 10, 0.85);
+      transition: opacity 0.3s ease;  
 
-      backdrop-filter: blur(30px);
+    }  
 
-      -webkit-backdrop-filter: blur(30px);
+    .container:hover::before {  
 
-      border-radius: 32px;
+      opacity: 1;  
 
-      padding: 3rem;
+    }  
 
-      border: 1px solid #2a2a2a;
+    .profile-section {  
 
-      max-width: 1000px;
+      flex: 1;  
 
-      width: 100%;
+      display: flex;  
 
-      margin: 1rem;
+      flex-direction: column;  
 
-      position: relative;
+      align-items: center;  
 
-      transform-style: preserve-3d;
+      gap: 2rem;  
 
-      animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      min-width: 280px;  
 
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      transform-style: preserve-3d;  
 
-    }
+    }  
 
+    .avatar-wrapper {  
 
+      position: relative;  
 
-    .container::before {
+      border-radius: 50%;  
 
-      content: '';
+      padding: 4px;  
 
-      position: absolute;
+      background: var(--accent);  
 
-      inset: 0;
+      transition: var(--transition);  
 
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+      transform-style: preserve-3d;  
 
-                              rgba(123, 97, 255, 0.15) 0%,
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);  
 
-                              transparent 60%);
+    }  
 
-      border-radius: 32px;
+    .avatar-wrapper::after {  
 
-      opacity: 0;
+      content: '';  
 
-      transition: opacity 0.3s ease;
+      position: absolute;  
 
-    }
+      inset: -2px;  
 
+      border-radius: 50%;  
 
+      border: 2px solid var(--accent);  
 
-    .container:hover::before {
+      opacity: 0.5;  
 
-      opacity: 1;
+      animation: pulseRing 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;  
 
-    }
+    }  
 
+    .avatar {  
 
+      width: 200px;  
 
-    .profile-section {
+      height: 200px;  
 
-      flex: 1;
+      border-radius: 50%;  
 
-      display: flex;
+      object-fit: cover;  
 
-      flex-direction: column;
+      display: block;  
 
-      align-items: center;
+      position: relative;  
 
-      gap: 2rem;
+      z-index: 1;  
 
-      min-width: 280px;
+      background: var(--bg);  
 
-      transform-style: preserve-3d;
+      transition: transform 0.3s ease;  
 
-    }
+      transform-style: preserve-3d;  
 
+      filter: grayscale(80%);  
 
+      border: 3px solid #000;  
 
-    .avatar-wrapper {
+    }  
 
-      position: relative;
+    .avatar:hover {  
 
-      border-radius: 50%;
+      filter: grayscale(0%);  
 
-      padding: 4px;
+      transform: scale(1.05);  
 
-      background: var(--accent);
+    }  
 
-      transition: var(--transition);
+    .name {  
 
-      transform-style: preserve-3d;
+      font-size: 2.6rem;  
 
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      font-weight: 700;  
 
-    }
+      color: var(--text-primary);  
 
+      letter-spacing: -0.5px;  
 
+      text-align: center;  
 
-    .avatar-wrapper::after {
+      position: relative;  
 
-      content: '';
+      padding-bottom: 12px;  
 
-      position: absolute;
+      transform-style: preserve-3d;  
 
-      inset: -2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  
 
-      border-radius: 50%;
+    }  
 
-      border: 2px solid var(--accent);
+    .name::after {  
 
-      opacity: 0.5;
+      content: '';  
 
-      animation: pulseRing 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+      position: absolute;  
 
-    }
+      bottom: 0;  
 
+      left: 50%;  
 
+      transform: translateX(-50%);  
 
-    .avatar {
+      width: 70px;  
 
-      width: 200px;
+      height: 2px;  
 
-      height: 200px;
+      background: var(--accent);  
 
-      border-radius: 50%;
+    }  
 
-      object-fit: cover;
+    .bio-section {  
 
-      display: block;
+      flex: 1.5;  
 
-      position: relative;
+      display: flex;  
 
-      z-index: 1;
+      flex-direction: column;  
 
-      background: var(--bg);
+      justify-content: space-between;  
 
-      transition: transform 0.3s ease;
+      min-width: 0;  
 
-      transform-style: preserve-3d;
+      gap: 2rem;  
 
-      filter: grayscale(80%);
+      transform-style: preserve-3d;  
 
-      border: 3px solid #000;
+    }  
 
-    }
+    .bio-text {  
 
+      font-size: 1.4rem;  
 
+      line-height: 1.7;  
 
-    .avatar:hover {
+      min-height: 80px;  
 
-      filter: grayscale(0%);
+      color: var(--text-primary);  
 
-      transform: scale(1.05);
+      font-weight: 400;  
 
-    }
+      padding: 1rem 0;  
 
+      position: relative;  
 
+      letter-spacing: 0.5px;  
 
-    .name {
+      transform: translateZ(20px);  
 
-      font-size: 2.6rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);  
 
-      font-weight: 700;
+    }  
 
-      color: var(--text-primary);
+    .links-grid {  
 
-      letter-spacing: -0.5px;
+      display: grid;  
 
-      text-align: center;
+      grid-template-columns: repeat(3, minmax(0, 1fr));  
 
-      position: relative;
+      grid-template-rows: repeat(3, 1fr);  
 
-      padding-bottom: 12px;
+      gap: 1.5rem;  
 
-      transform-style: preserve-3d;
+      margin-bottom: 2rem;  
 
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      transform-style: preserve-3d;  
 
-    }
+    }  
 
+    .link-card {  
 
+      display: flex;  
 
-    .name::after {
+      flex-direction: column;  
 
-      content: '';
+      align-items: center;  
 
-      position: absolute;
+      justify-content: center;  
 
-      bottom: 0;
+      padding: 1.8rem;  
 
-      left: 50%;
+      background: rgba(20, 20, 20, 0.7);  
 
-      transform: translateX(-50%);
+      border-radius: 20px;  
 
-      width: 70px;
+      transition: var(--transition);  
 
-      height: 2px;
+      text-decoration: none;  
 
-      background: var(--accent);
+      color: inherit;  
 
-    }
+      min-width: 0;  
 
+      text-align: center;  
 
+      border: 1px solid #2a2a2a;  
 
-    .bio-section {
+      position: relative;  
 
-      flex: 1.5;
+      overflow: hidden;  
 
-      display: flex;
+      transform-style: preserve-3d;  
 
-      flex-direction: column;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);  
 
-      justify-content: space-between;
+      cursor: pointer;  
 
-      min-width: 0;
+    }  
 
-      gap: 2rem;
+    .link-card::before {  
 
-      transform-style: preserve-3d;
+      content: '';  
 
-    }
+      position: absolute;  
 
+      inset: 0;  
 
+      background: var(--accent);  
 
-    .bio-text {
+      opacity: 0;  
 
-      font-size: 1.4rem;
+      transition: opacity 0.3s ease;  
 
-      line-height: 1.7;
+    }  
 
-      min-height: 80px;
+    .link-card:hover {  
 
-      color: var(--text-primary);
+      border-color: var(--accent);  
 
-      font-weight: 400;
+      transform: translateY(-5px);  
 
-      padding: 1rem 0;
+    }  
 
-      position: relative;
+    .link-card:hover::before {  
 
-      letter-spacing: 0.5px;
+      opacity: 0.05;  
 
-      transform: translateZ(20px);
+    }  
 
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    .link-card i {  
 
-    }
+      font-size: 2rem;  
 
+      margin-bottom: 1rem;  
 
+      color: var(--accent);  
 
-    .links-grid {
+      transition: var(--transition);  
 
-      display: grid;
+      position: relative;  
 
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      z-index: 1;  
 
-      grid-template-rows: repeat(3, 1fr);
+    }  
 
-      gap: 1.5rem;
+    .link-card span {  
 
-      margin-bottom: 2rem;
+      font-size: 1.1rem;  
 
-      transform-style: preserve-3d;
+      font-weight: 500;  
 
-    }
+      position: relative;  
 
+      z-index: 1;  
 
+    }  
 
-    .link-card {
+    .discord-card {  
 
-      display: flex;
+      grid-column: 1;  
 
-      flex-direction: column;
+      grid-row: 1;  
 
-      align-items: center;
+    }  
 
-      justify-content: center;
+    .discord-card i {  
 
-      padding: 1.8rem;
+      color: var(--discord);  
 
-      background: rgba(20, 20, 20, 0.7);
+    }  
 
-      border-radius: 20px;
+    .discord-card.copied {  
 
-      transition: var(--transition);
+      border-color: var(--success);  
 
-      text-decoration: none;
+    }  
 
-      color: inherit;
+    .discord-card.copied::before {  
 
-      min-width: 0;
+      background: var(--success);  
 
-      text-align: center;
+      opacity: 0.05;  
 
-      border: 1px solid #2a2a2a;
+    }  
 
-      position: relative;
+    .discord-card.copied i {  
 
-      overflow: hidden;
+      color: var(--success);  
 
-      transform-style: preserve-3d;
+    }  
 
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    .tooltip {  
 
-      cursor: pointer;
+      position: absolute;  
 
-    }
+      bottom: -40px;  
 
+      left: 50%;  
 
+      transform: translateX(-50%);  
 
-    .link-card::before {
+      background: rgba(0, 0, 0, 0.8);  
 
-      content: '';
+      color: white;  
 
-      position: absolute;
+      padding: 6px 10px;  
 
-      inset: 0;
+      border-radius: 6px;  
 
-      background: var(--accent);
+      font-size: 0.85rem;  
 
-      opacity: 0;
+      opacity: 0;  
 
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;  
 
-    }
+      pointer-events: none;  
 
+      white-space: nowrap;  
 
+      z-index: 10;  
 
-    .link-card:hover {
+    }  
 
-      border-color: var(--accent);
+    .tooltip.visible {  
 
-      transform: translateY(-5px);
+      opacity: 1;  
 
-    }
+      transform: translateX(-50%) translateY(-5px);  
 
+    }  
 
+    .tooltip::before {  
 
-    .link-card:hover::before {
+      content: "";  
 
-      opacity: 0.05;
+      position: absolute;  
 
-    }
+      top: -5px;  
 
+      left: 50%;  
 
+      transform: translateX(-50%);  
 
-    .link-card i {
+      border-width: 0 5px 5px 5px;  
 
-      font-size: 2rem;
+      border-style: solid;  
 
-      margin-bottom: 1rem;
+      border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;  
 
-      color: var(--accent);
+    }  
 
-      transition: var(--transition);
+    .music-player {  
 
-      position: relative;
+      width: 100%;  
 
-      z-index: 1;
+      background: rgba(20, 20, 20, 0.7);  
 
-    }
+      border-radius: 24px;  
 
+      padding: 1.5rem;  
 
+      border: 1px solid #2a2a2a;  
 
-    .link-card span {
+      transition: var(--transition);  
 
-      font-size: 1.1rem;
+      position: relative;  
 
-      font-weight: 500;
+      overflow: hidden;  
 
-      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);  
 
-      z-index: 1;
+    }  
 
-    }
+    .music-player:hover {  
 
+      border-color: var(--accent);  
 
+    }  
 
-    .discord-card {
+    .music-controls {  
 
-      grid-column: 1;
+      display: flex;  
 
-      grid-row: 1;
+      align-items: center;  
 
-    }
+      gap: 1.5rem;  
 
+      position: relative;  
 
+      z-index: 1;  
 
-    .discord-card i {
+    }  
 
-      color: var(--discord);
+    .album-art {  
 
-    }
+      width: 80px;  
 
+      height: 80px;  
 
+      border-radius: 16px;  
 
-    .discord-card.copied {
+      object-fit: cover;  
 
-      border-color: var(--success);
+      border: 2px solid var(--accent);  
 
-    }
+      transition: var(--transition);  
 
+      flex-shrink: 0;  
 
+      filter: grayscale(80%);  
 
-    .discord-card.copied::before {
+      transform: rotate(0deg);  
 
-      background: var(--success);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);  
 
-      opacity: 0.05;
+    }  
 
-    }
+    .album-art.spin {  
 
+      animation: rotate 20s linear infinite running;  
 
+      filter: grayscale(0%);  
 
-    .discord-card.copied i {
+    }  
 
-      color: var(--success);
+    .track-info {  
 
-    }
+      flex: 1;  
 
+      min-width: 0;  
 
+    }  
 
-    .tooltip {
+    .track-title {  
 
-      position: absolute;
+      font-size: 1.2rem;  
 
-      bottom: -40px;
+      font-weight: 600;  
 
-      left: 50%;
+      color: var(--text-primary);  
 
-      transform: translateX(-50%);
+      white-space: nowrap;  
 
-      background: rgba(0, 0, 0, 0.8);
+      overflow: hidden;  
 
-      color: white;
+      text-overflow: ellipsis;  
 
-      padding: 6px 10px;
+      margin-bottom: 0.3rem;  
 
-      border-radius: 6px;
+    }  
 
-      font-size: 0.85rem;
+    .track-artist {  
 
-      opacity: 0;
+      font-size: 1rem;  
 
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0.9;  
 
-      pointer-events: none;
+      white-space: nowrap;  
 
-      white-space: nowrap;
+      overflow: hidden;  
 
-      z-index: 10;
+      text-overflow: ellipsis;  
 
-    }
+    }  
 
+    .play-button {  
 
+      width: 50px;  
 
-    .tooltip.visible {
+      height: 50px;  
 
-      opacity: 1;
+      border-radius: 50%;  
 
-      transform: translateX(-50%) translateY(-5px);
+      background: var(--accent);  
 
-    }
+      border: none;  
 
+      color: white;  
 
+      cursor: pointer;  
 
-    .tooltip::before {
+      flex-shrink: 0;  
 
-      content: "";
+      display: flex;  
 
-      position: absolute;
+      align-items: center;  
 
-      top: -5px;
+      justify-content: center;  
 
-      left: 50%;
+      transition: var(--transition);  
 
-      transform: translateX(-50%);
+      position: relative;  
 
-      border-width: 0 5px 5px 5px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);  
 
-      border-style: solid;
+    }  
 
-      border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    .play-button:hover {  
 
-    }
+      background: var(--accent-dark);  
 
+      transform: scale(1.1);  
 
+    }  
 
-    .music-player {
+    .play-button i {  
 
-      width: 100%;
+      font-size: 1.2rem;  
 
-      background: rgba(20, 20, 20, 0.7);
+      position: relative;  
 
-      border-radius: 24px;
+      z-index: 1;  
 
-      padding: 1.5rem;
+    }  
 
-      border: 1px solid #2a2a2a;
+    .progress-container {  
 
-      transition: var(--transition);
+      width: 100%;  
 
-      position: relative;
+      height: 4px;  
 
-      overflow: hidden;
+      background: rgba(255,255,255,0.1);  
 
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 2px;  
 
-    }
+      margin-top: 1.5rem;  
 
+      overflow: hidden;  
 
+      cursor: pointer;  
 
-    .music-player:hover {
+      position: relative;  
 
-      border-color: var(--accent);
+      z-index: 1;  
 
-    }
+    }  
 
+    .progress-bar {  
 
+      width: 0%;  
 
-    .music-controls {
+      height: 100%;  
 
-      display: flex;
+      background: var(--accent);  
 
-      align-items: center;
+      transition: width 0.1s linear;  
 
-      gap: 1.5rem;
+    }  
 
-      position: relative;
+    .view-counter {  
 
-      z-index: 1;
+      background: rgba(20, 20, 20, 0.7);  
 
-    }
+      padding: 1rem 2rem;  
 
+      border-radius: 24px;  
 
+      font-size: 1rem;  
 
-    .album-art {
+      align-self: flex-start;  
 
-      width: 80px;
+      border: 1px solid #2a2a2a;  
 
-      height: 80px;
+      transition: var(--transition);  
 
-      border-radius: 16px;
+      display: flex;  
 
-      object-fit: cover;
+      align-items: center;  
 
-      border: 2px solid var(--accent);
+      gap: 0.5rem;  
 
-      transition: var(--transition);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);  
 
-      flex-shrink: 0;
+    }  
 
-      filter: grayscale(80%);
+    .view-counter:hover {  
 
-      transform: rotate(0deg);
+      border-color: var(--accent);  
 
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    }  
 
-    }
+    @keyframes rotate {  
 
+      from { transform: rotate(0deg); }  
 
+      to { transform: rotate(360deg); }  
 
-    .album-art.spin {
+    }  
 
-      animation: rotate 20s linear infinite running;
+    @keyframes pulseRing {  
 
-      filter: grayscale(0%);
+      0% { transform: scale(1); opacity: 0.5; }  
 
-    }
+      50% { transform: scale(1.1); opacity: 0.3; }  
 
+      100% { transform: scale(1); opacity: 0.5; }  
 
+    }  
 
-    .track-info {
+    @keyframes fadeInUp {  
 
-      flex: 1;
+      from { opacity: 0; transform: translateY(20px); }  
 
-      min-width: 0;
+      to { opacity: 1; transform: translateY(0); }  
 
-    }
+    }  
 
+    @keyframes copied {  
 
+      0% { transform: translateY(-5px); }  
 
-    .track-title {
+      50% { transform: translateY(-8px); }  
 
-      font-size: 1.2rem;
+      100% { transform: translateY(-5px); }  
 
-      font-weight: 600;
+    }  
 
-      color: var(--text-primary);
+    @media (max-width: 768px) {  
 
-      white-space: nowrap;
+      .container {  
 
-      overflow: hidden;
+        flex-direction: column;  
 
-      text-overflow: ellipsis;
+        padding: 2rem;  
 
-      margin-bottom: 0.3rem;
+        max-width: 95%;  
 
-    }
+        gap: 2rem;  
 
+      }  
 
+      .avatar {  
 
-    .track-artist {
+        width: 160px;  
 
-      font-size: 1rem;
+        height: 160px;  
 
-      opacity: 0.9;
+      }  
 
-      white-space: nowrap;
+      .name {  
 
-      overflow: hidden;
+        font-size: 2.2rem;  
 
-      text-overflow: ellipsis;
+      }  
 
-    }
+      .links-grid {  
 
+        grid-template-columns: repeat(2, 1fr);  
 
+      }  
 
-    .play-button {
+      .view-counter {  
 
-      width: 50px;
+        align-self: center;  
 
-      height: 50px;
+      }  
 
-      border-radius: 50%;
+      .music-controls {  
 
-      background: var(--accent);
+        gap: 1.2rem;  
 
-      border: none;
+      }  
 
-      color: white;
+      .album-art {  
 
-      cursor: pointer;
+        width: 60px;  
 
-      flex-shrink: 0;
+        height: 60px;  
 
-      display: flex;
+      }  
 
-      align-items: center;
+      .play-button {  
 
-      justify-content: center;
+        width: 45px;  
 
-      transition: var(--transition);
+        height: 45px;  
 
-      position: relative;
+      }  
 
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      .track-title {  
 
-    }
+        font-size: 1.1rem;  
 
+      }  
 
+      .track-artist {  
 
-    .play-button:hover {
+        font-size: 0.9rem;  
 
-      background: var(--accent-dark);
+      }  
 
-      transform: scale(1.1);
+      .bio-text {  
 
-    }
+        font-size: 1.3rem;  
 
+        text-align: center;  
 
+      }  
 
-    .play-button i {
+      .discord-card {  
 
-      font-size: 1.2rem;
+        grid-column: auto;  
 
-      position: relative;
+        grid-row: auto;  
 
-      z-index: 1;
+      }  
 
-    }
+    }  
 
+    @media (max-width: 480px) {  
 
+      .container {  
 
-    .progress-container {
+        padding: 1.8rem;  
 
-      width: 100%;
+        border-radius: 24px;  
 
-      height: 4px;
+      }  
 
-      background: rgba(255,255,255,0.1);
+      .avatar {  
 
-      border-radius: 2px;
+        width: 140px;  
 
-      margin-top: 1.5rem;
+        height: 140px;  
 
-      overflow: hidden;
+      }  
 
-      cursor: pointer;
+      .name {  
 
-      position: relative;
+        font-size: 2rem;  
 
-      z-index: 1;
+      }  
 
-    }
+      .music-player {  
 
+        padding: 1.2rem;  
 
+      }  
 
-    .progress-bar {
+      .link-card {  
 
-      width: 0%;
+        padding: 1.5rem;  
 
-      height: 100%;
+      }  
 
-      background: var(--accent);
+      .links-grid {  
 
-      transition: width 0.1s linear;
+        grid-template-columns: 1fr;  
 
-    }
+      }  
 
+      .bio-text {  
 
+        font-size: 1.2rem;  
 
-    .view-counter {
+      }  
 
-      background: rgba(20, 20, 20, 0.7);
+    }  
 
-      padding: 1rem 2rem;
+  </style>  
+</head>  
+<body>  
+  <div class="particles" id="particles"></div>  
+  <div class="container">  
+    <div class="profile-section">  
+      <div class="avatar-wrapper">  
+        <img src="https://cdn.junkie.monster/files/3b2b1730-ac15-4cb7-bac7-ec13a70ca7ec/huyBKtY/3eb2979e6c08b37fa6de94f0f19dfc3f.320x320x1%20(1).jpg"   
+             alt="Serotonin"   
+             class="avatar">  
+      </div>  
+      <div class="name">Serotonin</div>  
 
-      border-radius: 24px;
+      <div class="music-player">  
+        <div class="music-controls">  
+          <img src="https://cdn.junkie.monster/files/3b2b1730-ac15-4cb7-bac7-ec13a70ca7ec/AJoej1h/Cover%20of%20Heart%20So%20Pure%20by%20Sematary.jpg"   
+               class="album-art"   
+               alt="Album Art">  
+          <div class="track-info">  
+            <div class="track-title">Heart So Pure</div>  
+            <div class="track-artist">Sematary</div>  
+          </div>  
+          <button class="play-button" id="playButton">  
+            <i class="fas fa-play"></i>  
+          </button>  
+        </div>  
+        <div class="progress-container" id="progressContainer">  
+          <div class="progress-bar" id="progressBar"></div>  
+        </div>  
+      </div>  
 
-      font-size: 1rem;
+      <div class="view-counter">  
+        <i class="fas fa-eye"></i>  
+        <span id="views">0</span>  
+      </div>  
+    </div>  
 
-      align-self: flex-start;
+    <div class="bio-section">  
+      <p class="bio-text" id="typewriter"></p>  
 
-      border: 1px solid #2a2a2a;
+      <div class="links-grid">  
+        <div class="link-card discord-card" id="discordBtn">  
+          <i class="fab fa-discord"></i>  
+          <span>Discord</span>  
+          <div class="tooltip" id="tooltip">Click to copy Discord username</div>  
+        </div>  
+        <a href="https://www.last.fm/user/ignosco" class="link-card" target="_blank" style="grid-column: 1; grid-row: 2;">  
+          <i class="fab fa-lastfm"></i>  
+          <span>Last.fm</span>  
+        </a>  
+        <a href="https://uploads.gay" class="link-card" target="_blank" style="grid-column: 2; grid-row: 1;">  
+          <i class="fas fa-folder"></i>  
+          <span>File Host</span>  
+        </a>  
+        <a href="https://hello.serotonin.gay" class="link-card" target="_blank" style="grid-column: 3; grid-row: 1;">  
+          <i class="fas fa-hand-sparkles"></i>  
+          <span>Say hello!</span>  
+        </a>  
+        <a href="https://t.me/vanzhel" class="link-card" target="_blank" style="grid-column: 2; grid-row: 2;">  
+          <i class="fab fa-telegram"></i>  
+          <span>Telegram</span>  
+        </a>  
+        <a href="https://juggi.ng/moon" class="link-card" target="_blank" style="grid-column: 3; grid-row: 2;">  
+          <i class="fas fa-moon"></i>  
+          <span>Juggi.ng</span>  
+        </a>  
+        <a href="mailto:0@junkie.monster" class="link-card" target="_blank" style="grid-column: 1; grid-row: 3;">  
+          <i class="fas fa-at"></i>  
+          <span>@</span>  
+        </a>  
+        <a href="https://junkie.monster" class="link-card" target="_blank" style="grid-column: 2; grid-row: 3;">  
+          <i class="fas fa-bug"></i>  
+          <span>junkie</span>  
+        </a>  
+      </div>  
+    </div>  
+  </div>  
+  <audio id="audio-element" src="https://cdn.junkie.monster/files/3b2b1730-ac15-4cb7-bac7-ec13a70ca7ec/ZjzWAsH/SpotiDownloader.com%20-%20Heart%20So%20Pure%20-%20Sematary.mp3"></audio>  
 
-      transition: var(--transition);
+  <script>  
+    document.addEventListener('mousemove', (e) => {  
+      const container = document.querySelector('.container');  
+      const { left, top, width, height } = container.getBoundingClientRect();  
+      const x = ((e.clientX - left) / width) * 100;  
+      const y = ((e.clientY - top) / height) * 100;  
+      container.style.setProperty('--x', `${x}%`);  
+      container.style.setProperty('--y', `${y}%`);  
+    });  
 
-      display: flex;
+    const viewsElement = document.getElementById('views');  
+    fetch('https://abacus.jasoncameron.dev/hit/frongongongongong-dopamine.gay/views')  
+      .then(res => res.json())  
+      .then(data => viewsElement.textContent = data.value.toLocaleString())  
+      .catch(() => viewsElement.textContent = '7k+');  
 
-      align-items: center;
+    const typewriter = document.getElementById('typewriter');  
+    const texts = [  
+      "I write, code and make music",  
+      "Not looking for work",  
+      "I don't have a lot of free time",  
+      "Feel free to reach out"  
+    ];  
+    let textIndex = 0;  
+    let charIndex = 0;  
+    let isDeleting = false;  
+    let typingPaused = false;  
 
-      gap: 0.5rem;
+    function type() {  
+      if (typingPaused) return;  
+      const currentText = texts[textIndex];  
 
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+      if (!isDeleting) {  
+        typewriter.textContent = currentText.slice(0, charIndex + 1);  
+        charIndex++;  
 
-    }
+        if (charIndex === currentText.length) {  
+          typingPaused = true;  
+          setTimeout(() => {  
+            isDeleting = true;  
+            typingPaused = false;  
+            type();  
+          }, 2000);  
+          return;  
+        }  
+      } else {  
+        typewriter.textContent = currentText.slice(0, charIndex - 1);  
+        charIndex--;  
 
+        if (charIndex === 0) {  
+          typingPaused = true;  
+          isDeleting = false;  
+          textIndex = (textIndex + 1) % texts.length;  
+          setTimeout(() => {  
+            typingPaused = false;  
+            type();  
+          }, 1000);  
+          return;  
+        }  
+      }  
 
+      setTimeout(type, isDeleting ? 30 : 80 + Math.random() * 50);  
+    }  
+    setTimeout(type, 1000);  
 
-    .view-counter:hover {
+    const audio = document.getElementById('audio-element');  
+    const playButton = document.getElementById('playButton');  
+    const progressBar = document.getElementById('progressBar');  
+    const progressContainer = document.getElementById('progressContainer');  
+    const albumArt = document.querySelector('.album-art');  
+    let rotationAngle = 0;  
+    let lastTimestamp = 0;  
 
-      border-color: var(--accent);
+    function updateRotation(timestamp) {  
+      if (!lastTimestamp) lastTimestamp = timestamp;  
+      const delta = timestamp - lastTimestamp;  
 
-    }
+      if (!audio.paused) {  
+        rotationAngle = (rotationAngle + (delta * 0.018)) % 360;  
+        albumArt.style.transform = `rotate(${rotationAngle}deg)`;  
+      }  
 
+      lastTimestamp = timestamp;  
+      requestAnimationFrame(updateRotation);  
+    }  
 
+    requestAnimationFrame(updateRotation);  
 
-    @keyframes rotate {
+    audio.addEventListener('timeupdate', () => {  
+      const progress = (audio.currentTime / audio.duration) * 100;  
+      progressBar.style.width = `${progress}%`;  
+    });  
 
-      from { transform: rotate(0deg); }
+    audio.addEventListener('play', () => {  
+      albumArt.style.filter = 'grayscale(0%)';  
+      playButton.innerHTML = '<i class="fas fa-pause"></i>';  
+    });  
 
-      to { transform: rotate(360deg); }
+    audio.addEventListener('pause', () => {  
+      albumArt.style.filter = 'grayscale(80%)';  
+      playButton.innerHTML = '<i class="fas fa-play"></i>';  
+    });  
 
-    }
+    playButton.addEventListener('click', () => {  
+      audio.paused ? audio.play() : audio.pause();  
+    });  
 
+    progressContainer.addEventListener('click', (e) => {  
+      const rect = progressContainer.getBoundingClientRect();  
+      const pos = (e.clientX - rect.left) / rect.width;  
+      audio.currentTime = pos * audio.duration;  
+    });  
 
+    document.querySelectorAll('.link-card').forEach(card => {  
+      card.addEventListener('mouseenter', () => {  
+        card.style.transform = 'translateY(-5px)';  
+        if (card.id === 'discordBtn') {  
+          document.getElementById('tooltip').classList.add('visible');  
+        }  
+      });  
 
-    @keyframes pulseRing {
+      card.addEventListener('mouseleave', () => {  
+        card.style.transform = 'translateY(0)';  
+        if (card.id === 'discordBtn') {  
+          document.getElementById('tooltip').classList.remove('visible');  
+        }  
+      });  
+    });  
 
-      0% { transform: scale(1); opacity: 0.5; }
+    // Discord button clipboard functionality  
+    const discordBtn = document.getElementById('discordBtn');  
+    const tooltip = document.getElementById('tooltip');  
 
-      50% { transform: scale(1.1); opacity: 0.3; }
+    discordBtn.addEventListener('click', () => {  
+      navigator.clipboard.writeText('disordercover')  
+        .then(() => {  
+          discordBtn.classList.add('copied');  
+          tooltip.textContent = 'Copied!';  
+          tooltip.classList.add('visible');  
 
-      100% { transform: scale(1); opacity: 0.5; }
+          // Animation for feedback  
+          discordBtn.style.animation = 'copied 0.5s ease';  
 
-    }
+          setTimeout(() => {  
+            discordBtn.classList.remove('copied');  
+            discordBtn.style.animation = '';  
+            tooltip.textContent = 'Click to copy Discord username';  
+            if (!discordBtn.matches(':hover')) {  
+              tooltip.classList.remove('visible');  
+            }  
+          }, 2000);  
+        })  
+        .catch(err => {  
+          console.error('Could not copy text: ', err);  
+          tooltip.textContent = 'Failed to copy';  
+          tooltip.classList.add('visible');  
 
-
-
-    @keyframes fadeInUp {
-
-      from { opacity: 0; transform: translateY(20px); }
-
-      to { opacity: 1; transform: translateY(0); }
-
-    }
-
-
-
-    @keyframes copied {
-
-      0% { transform: translateY(-5px); }
-
-      50% { transform: translateY(-8px); }
-
-      100% { transform: translateY(-5px); }
-
-    }
-
-
-
-    @media (max-width: 768px) {
-
-      .container {
-
-        flex-direction: column;
-
-        padding: 2rem;
-
-        max-width: 95%;
-
-        gap: 2rem;
-
-      }
-
-
-
-      .avatar {
-
-        width: 160px;
-
-        height: 160px;
-
-      }
-
-
-
-      .name {
-
-        font-size: 2.2rem;
-
-      }
-
-
-
-      .links-grid {
-
-        grid-template-columns: repeat(2, 1fr);
-
-      }
-
-
-
-      .view-counter {
-
-        align-self: center;
-
-      }
-
-
-
-      .music-controls {
-
-        gap: 1.2rem;
-
-      }
-
-
-
-      .album-art {
-
-        width: 60px;
-
-        height: 60px;
-
-      }
-
-
-
-      .play-button {
-
-        width: 45px;
-
-        height: 45px;
-
-      }
-
-
-
-      .track-title {
-
-        font-size: 1.1rem;
-
-      }
-
-
-
-      .track-artist {
-
-        font-size: 0.9rem;
-
-      }
-
-
-
-      .bio-text {
-
-        font-size: 1.3rem;
-
-        text-align: center;
-
-      }
-
-
-
-      .discord-card {
-
-        grid-column: auto;
-
-        grid-row: auto;
-
-      }
-
-    }
-
-
-
-    @media (max-width: 480px) {
-
-      .container {
-
-        padding: 1.8rem;
-
-        border-radius: 24px;
-
-      }
-
-
-
-      .avatar {
-
-        width: 140px;
-
-        height: 140px;
-
-      }
-
-
-
-      .name {
-
-        font-size: 2rem;
-
-      }
-
-
-
-      .music-player {
-
-        padding: 1.2rem;
-
-      }
-
-
-
-      .link-card {
-
-        padding: 1.5rem;
-
-      }
-
-
-
-      .links-grid {
-
-        grid-template-columns: 1fr;
-
-      }
-
-
-
-      .bio-text {
-
-        font-size: 1.2rem;
-
-      }
-
-    }
-
-  </style>
-
-</head>
-
-<body>
-
-  <div class="particles" id="particles"></div>
-
-
-
-  <div class="container">
-
-    <div class="profile-section">
-
-      <div class="avatar-wrapper">
-
-        <img src="https://cdn.nest.rip/uploads/bc208f97-57ce-4fe2-b1bb-a48d9ab93e3e.jpg" 
-
-             alt="Serotonin" 
-
-             class="avatar">
-
-      </div>
-
-      <div class="name">Serotonin</div>
-
-
-
-      <div class="music-player">
-
-        <div class="music-controls">
-
-          <img src="https://cdn.nest.rip/uploads/1185e9a1-ce59-4ebf-a23d-d1b5d67eba8a.jpeg" 
-
-               class="album-art" 
-
-               alt="Album Art">
-
-          <div class="track-info">
-
-            <div class="track-title">u not the one (prod. 89gbs)</div>
-
-            <div class="track-artist">curseaugust</div>
-
-          </div>
-
-          <button class="play-button" id="playButton">
-
-            <i class="fas fa-play"></i>
-
-          </button>
-
-        </div>
-
-        <div class="progress-container" id="progressContainer">
-
-          <div class="progress-bar" id="progressBar"></div>
-
-        </div>
-
-      </div>
-
-
-
-      <div class="view-counter">
-
-        <i class="fas fa-eye"></i>
-
-        <span id="views">0</span>
-
-      </div>
-
-    </div>
-
-
-
-    <div class="bio-section">
-
-      <p class="bio-text" id="typewriter"></p>
-
-
-
-      <div class="links-grid">
-
-        <div class="link-card discord-card" id="discordBtn">
-
-          <i class="fab fa-discord"></i>
-
-          <span>Discord</span>
-
-          <div class="tooltip" id="tooltip">Click to copy Discord username</div>
-
-        </div>
-
-        <a href="https://www.last.fm/user/ignosco" class="link-card" target="_blank" style="grid-column: 1; grid-row: 2;">
-
-          <i class="fab fa-lastfm"></i>
-
-          <span>Last.fm</span>
-
-        </a>
-
-        <a href="https://uploads.gay" class="link-card" target="_blank" style="grid-column: 2; grid-row: 1;">
-
-          <i class="fas fa-folder"></i>
-
-          <span>File Host</span>
-
-        </a>
-
-        <a href="https://hello.serotonin.gay" class="link-card" target="_blank" style="grid-column: 3; grid-row: 1;">
-
-          <i class="fas fa-hand-sparkles"></i>
-
-          <span>Say hello!</span>
-
-        </a>
-
-        <a href="https://t.me/vanzhel" class="link-card" target="_blank" style="grid-column: 2; grid-row: 2;">
-
-          <i class="fab fa-telegram"></i>
-
-          <span>Telegram</span>
-
-        </a>
-
-        <a href="https://juggi.ng/moon" class="link-card" target="_blank" style="grid-column: 3; grid-row: 2;">
-
-          <i class="fas fa-moon"></i>
-
-          <span>Juggi.ng</span>
-
-        </a>
-
-        <a href="mailto:0@junkie.monster" class="link-card" target="_blank" style="grid-column: 1; grid-row: 3;">
-
-          <i class="fas fa-at"></i>
-
-          <span>@</span>
-
-        </a>
-
-        <a href="https://junkie.monster" class="link-card" target="_blank" style="grid-column: 2; grid-row: 3;">
-
-          <i class="fas fa-bug"></i>
-
-          <span>junkie</span>
-
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <audio id="audio-element" src="https://cdn.nest.rip/uploads/dfeff358-9d77-4502-83b5-0603c1dd133a.mp3"></audio>
-
-
-
-  <script>
-
-    document.addEventListener('mousemove', (e) => {
-
-      const container = document.querySelector('.container');
-
-      const { left, top, width, height } = container.getBoundingClientRect();
-
-      const x = ((e.clientX - left) / width) * 100;
-
-      const y = ((e.clientY - top) / height) * 100;
-
-      container.style.setProperty('--x', `${x}%`);
-
-      container.style.setProperty('--y', `${y}%`);
-
-    });
-
-
-
-    const viewsElement = document.getElementById('views');
-
-    fetch('https://abacus.jasoncameron.dev/hit/frongongongongong-dopamine.gay/views')
-
-      .then(res => res.json())
-
-      .then(data => viewsElement.textContent = data.value.toLocaleString())
-
-      .catch(() => viewsElement.textContent = '7k+');
-
-
-
-    const typewriter = document.getElementById('typewriter');
-
-    const texts = [
-
-      "I write, code and make music",
-
-      "Not looking for work",
-
-      "I don't have a lot of free time",
-
-      "Feel free to reach out"
-
-    ];
-
-    let textIndex = 0;
-
-    let charIndex = 0;
-
-    let isDeleting = false;
-
-    let typingPaused = false;
-
-
-
-    function type() {
-
-      if (typingPaused) return;
-
-      const currentText = texts[textIndex];
-
-
-
-      if (!isDeleting) {
-
-        typewriter.textContent = currentText.slice(0, charIndex + 1);
-
-        charIndex++;
-
-
-
-        if (charIndex === currentText.length) {
-
-          typingPaused = true;
-
-          setTimeout(() => {
-
-            isDeleting = true;
-
-            typingPaused = false;
-
-            type();
-
-          }, 2000);
-
-          return;
-
-        }
-
-      } else {
-
-        typewriter.textContent = currentText.slice(0, charIndex - 1);
-
-        charIndex--;
-
-
-
-        if (charIndex === 0) {
-
-          typingPaused = true;
-
-          isDeleting = false;
-
-          textIndex = (textIndex + 1) % texts.length;
-
-          setTimeout(() => {
-
-            typingPaused = false;
-
-            type();
-
-          }, 1000);
-
-          return;
-
-        }
-
-      }
-
-
-
-      setTimeout(type, isDeleting ? 30 : 80 + Math.random() * 50);
-
-    }
-
-    setTimeout(type, 1000);
-
-
-
-    const audio = document.getElementById('audio-element');
-
-    const playButton = document.getElementById('playButton');
-
-    const progressBar = document.getElementById('progressBar');
-
-    const progressContainer = document.getElementById('progressContainer');
-
-    const albumArt = document.querySelector('.album-art');
-
-    let rotationAngle = 0;
-
-    let lastTimestamp = 0;
-
-
-
-    function updateRotation(timestamp) {
-
-      if (!lastTimestamp) lastTimestamp = timestamp;
-
-      const delta = timestamp - lastTimestamp;
-
-
-
-      if (!audio.paused) {
-
-        rotationAngle = (rotationAngle + (delta * 0.018)) % 360;
-
-        albumArt.style.transform = `rotate(${rotationAngle}deg)`;
-
-      }
-
-
-
-      lastTimestamp = timestamp;
-
-      requestAnimationFrame(updateRotation);
-
-    }
-
-
-
-    requestAnimationFrame(updateRotation);
-
-
-
-    audio.addEventListener('timeupdate', () => {
-
-      const progress = (audio.currentTime / audio.duration) * 100;
-
-      progressBar.style.width = `${progress}%`;
-
-    });
-
-
-
-    audio.addEventListener('play', () => {
-
-      albumArt.style.filter = 'grayscale(0%)';
-
-      playButton.innerHTML = '<i class="fas fa-pause"></i>';
-
-    });
-
-
-
-    audio.addEventListener('pause', () => {
-
-      albumArt.style.filter = 'grayscale(80%)';
-
-      playButton.innerHTML = '<i class="fas fa-play"></i>';
-
-    });
-
-
-
-    playButton.addEventListener('click', () => {
-
-      audio.paused ? audio.play() : audio.pause();
-
-    });
-
-
-
-    progressContainer.addEventListener('click', (e) => {
-
-      const rect = progressContainer.getBoundingClientRect();
-
-      const pos = (e.clientX - rect.left) / rect.width;
-
-      audio.currentTime = pos * audio.duration;
-
-    });
-
-
-
-    document.querySelectorAll('.link-card').forEach(card => {
-
-      card.addEventListener('mouseenter', () => {
-
-        card.style.transform = 'translateY(-5px)';
-
-        if (card.id === 'discordBtn') {
-
-          document.getElementById('tooltip').classList.add('visible');
-
-        }
-
-      });
-
-
-
-      card.addEventListener('mouseleave', () => {
-
-        card.style.transform = 'translateY(0)';
-
-        if (card.id === 'discordBtn') {
-
-          document.getElementById('tooltip').classList.remove('visible');
-
-        }
-
-      });
-
-    });
-
-
-
-    // Discord button clipboard functionality
-
-    const discordBtn = document.getElementById('discordBtn');
-
-    const tooltip = document.getElementById('tooltip');
-
-    
-
-    discordBtn.addEventListener('click', () => {
-
-      navigator.clipboard.writeText('disordercover')
-
-        .then(() => {
-
-          discordBtn.classList.add('copied');
-
-          tooltip.textContent = 'Copied!';
-
-          tooltip.classList.add('visible');
-
-          
-
-          // Animation for feedback
-
-          discordBtn.style.animation = 'copied 0.5s ease';
-
-          
-
-          setTimeout(() => {
-
-            discordBtn.classList.remove('copied');
-
-            discordBtn.style.animation = '';
-
-            tooltip.textContent = 'Click to copy Discord username';
-
-            if (!discordBtn.matches(':hover')) {
-
-              tooltip.classList.remove('visible');
-
-            }
-
-          }, 2000);
-
-        })
-
-        .catch(err => {
-
-          console.error('Could not copy text: ', err);
-
-          tooltip.textContent = 'Failed to copy';
-
-          tooltip.classList.add('visible');
-
-          
-
-          setTimeout(() => {
-
-            tooltip.textContent = 'Click to copy Discord username';
-
-            if (!discordBtn.matches(':hover')) {
-
-              tooltip.classList.remove('visible');
-
-            }
-
-          }, 2000);
-
-        });
-
-    });
-
-  </script>
-
-</body>
-
+          setTimeout(() => {  
+            tooltip.textContent = 'Click to copy Discord username';  
+            if (!discordBtn.matches(':hover')) {  
+              tooltip.classList.remove('visible');  
+            }  
+          }, 2000);  
+        });  
+    });  
+  </script>  
+</body>  
 </html>
